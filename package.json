@@ -5,7 +5,7 @@
   "description": "[![Actions Status](https://github.com/Xpamju/frontend-project-46/workflows/hexlet-check/badge.svg)](https://github.com/Xpamju/frontend-project-46/actions)",
   "main": "index.js",
   "bin": {
-    "gendiff": "bin/gendiff.js"
+    "gendiff": "src/genDiff.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
