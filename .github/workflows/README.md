@@ -4,4 +4,4 @@ After completing all the steps in the project, automatic tests will become avail
 
 The hexlet-check.yml file is responsible for running these tests - do not delete this file, edit it, or rename the repository.
 
-https://asciinema.org/a/LAP1a9EeEHMXhv8asv97Lm3bY
+https://asciinema.org/a/rvPzhQoiK7KZ7pazckKLGLshV
