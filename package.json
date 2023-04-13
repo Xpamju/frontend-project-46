@@ -19,5 +19,14 @@
   "bugs": {
     "url": "https://github.com/Xpamju/frontend-project-46/issues"
   },
-  "homepage": "https://github.com/Xpamju/frontend-project-46#readme"
+  "homepage": "https://github.com/Xpamju/frontend-project-46#readme",
+  "devDependencies": {
+    "eslint": "^8.38.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.27.5"
+  },
+  "dependencies": {
+    "commander": "^10.0.0",
+    "lodash": "^4.17.21"
+  }
 }

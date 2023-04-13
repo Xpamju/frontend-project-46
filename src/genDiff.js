@@ -1,7 +1,5 @@
 import { readFileSync } from 'fs';
 import _ from 'lodash';
- 
-
 // const newobj = (data1, data2) => {
 
 //   // const keys = [...new Set([...Object.keys(data1), ...Object.keys(data2)])]
@@ -20,18 +18,14 @@ import _ from 'lodash';
 //       result.push([`${key}: ${data1[key]}`]);
 //       return result
 //      }
-  
 //      result.push([`- ${key}: ${data1[key]}`]);
 //      result.push([`+ ${key}: ${data2[key]}`])
-//     return result
-   
-// }, []) 
+//      return result
+// }, [])
 // }
-
 
 const newobj = (data1, data2) => {
   const keys = _.union(Object.keys(data1), Object.keys(data2));
-
   const result = keys.reduce((acc, key) => {
     if (_.has(data1, key) && !_.has(data2, key)) {
       acc[`- ${key}`] = data1[key];
@@ -50,13 +44,11 @@ const newobj = (data1, data2) => {
   return result;
 };
 
-
 const obj = (filepath1, filepath2) => {
-
-    const data1 = readFileSync(filepath1, 'utf-8');
-    const data2 = readFileSync(filepath2, 'utf-8');
-    const dataPparsed1 = JSON.parse(data1);
-    const dataPparsed2 = JSON.parse(data2);
-    console.log(newobj(dataPparsed1,dataPparsed2))
-}
- export default obj; 
+  const data1 = readFileSync(filepath1, 'utf-8');
+  const data2 = readFileSync(filepath2, 'utf-8');
+  const dataPparsed1 = JSON.parse(data1);
+  const dataPparsed2 = JSON.parse(data2);
+  console.log(newobj(dataPparsed1, dataPparsed2));
+};
+export default obj;
