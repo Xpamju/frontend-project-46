@@ -1,6 +1,6 @@
 import { readFileSync } from 'fs';
 import _ from 'lodash';
- //entries
+ 
 
 // const newobj = (data1, data2) => {
 
@@ -28,6 +28,7 @@ import _ from 'lodash';
 // }, []) 
 // }
 
+
 const newobj = (data1, data2) => {
   const keys = _.union(Object.keys(data1), Object.keys(data2));
 
@@ -49,32 +50,6 @@ const newobj = (data1, data2) => {
   return result;
 };
 
-// function getDifference(a, b) {
-//   return [...new Set([...Object.keys(a), ...Object.keys(b)])].reduce((r, k) => {
-//       if (k in a && !(k in b)) {
-//           r.push([`- ${k}`, a[k]]);
-//           return r;
-//       }
-
-//       if (!(k in a) && k in b) {
-//           r.push([`+ ${k}`, b[k]]);
-//           return r;
-//       }
-
-//       if (a[k] === b[k]) {
-//         r.push([k, a[k]]);
-
-//         return r;
-//       };
-
-//       r.push([`- ${k}`, a[k]]);
-//       r.push([`+ ${k}`, b[k]]);
-//       return r;
-//   }, []);
-// }
-
-
-JSON.stringify(newobj(data1, data2))
 
 const obj = (filepath1, filepath2) => {
 
