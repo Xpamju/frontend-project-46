@@ -1,0 +1,2 @@
+exclude_patterns:
+- "bin/gendiff.js"
