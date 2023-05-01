@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { Command } from 'commander';
-import { obj } from '../src/genDiff.js';
+import obj from '../src/parsers.js';
 
 const program = new Command();
 
