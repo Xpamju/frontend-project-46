@@ -13,6 +13,7 @@ on:
       - '**'
 
 jobs:
+timeout-minutes: NUMBER
   build:
     runs-on: ubuntu-latest
     steps:
