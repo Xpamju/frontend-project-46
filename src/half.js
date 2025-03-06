@@ -1,3 +1,6 @@
+import parseAndRead from "./parsers.js";
 
-const he = 'he';
-export default he;
+const start = (filepath1, filepath2) => {
+    return parseAndRead(filepath1, filepath2);
+}
+export default start;
