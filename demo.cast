@@ -1,0 +1,12 @@
+{"version": 2, "width": 169, "height": 20, "timestamp": 1741630857, "env": {"SHELL": "/bin/zsh", "TERM": "xterm-256color"}}
+[0.039236, "o", "\u001b[1m\u001b[7m%\u001b[27m\u001b[1m\u001b[0m                                                                                                                                                                        \r \r"]
+[0.039688, "o", "\r\u001b[0m\u001b[27m\u001b[24m\u001b[Jjulia@MacBook-Air-Ula frontend-project-46 % \u001b[K\u001b[?2004h"]
+[2.762933, "o", "make gendiff filepath1='__fixtures__/file1.json' filepath2='__fixtures__/file2.json'"]
+[3.301586, "o", "\u001b[84Dnod\u001b[2Chalf.js                                                                        \u001b[72D"]
+[5.646482, "o", "\u001b[12Dcd src      \b\b\b\b\b\b"]
+[6.519235, "o", "\b\b\b\b\b\bmake gendiff filepath1='__fixtures__/file1.json' filepath2='__fixtures__/file2.json'"]
+[9.385371, "o", "\u001b[84Dcd src                                                                              \u001b[78D"]
+[10.137977, "o", "\b\b\b\b\b\bnode half.js"]
+[11.231403, "o", "\u001b[12Dmak\u001b[2Cgendiff filepath1='__fixtures__/file1.json' filepath2='__fixtures__/file2.json'"]
+[11.993212, "o", "\u001b[84D                                                                                    \u001b[84D"]
+[28.768077, "o", "\u001b[?2004l\r\r\n"]

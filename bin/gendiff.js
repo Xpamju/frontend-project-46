@@ -16,6 +16,6 @@ program
     console.log(parseAndRead(filepath1, filepath2));
   });
 
-program.parse(console.log(process.argv));
+program.parse((process.argv));
 
 
