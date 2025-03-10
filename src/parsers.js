@@ -1,7 +1,7 @@
 import { readFileSync } from 'fs';
 import path from 'path';
 import yml from 'js-yaml';
-// import newobj from './genDiff.js';
+import compare from './half.js';
 
 
 const parseAndRead = (filepath1, filepath2) => {
@@ -29,6 +29,6 @@ const parseAndRead = (filepath1, filepath2) => {
   const parsedData1 = getParser(format1, data1);
   const parsedData2 = getParser(format2, data2);
 
-  return { parsedData1, parsedData2 };
+  return compare(parsedData1, parsedData2);
 };
 export default parseAndRead;

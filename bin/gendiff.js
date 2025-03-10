@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import { Command } from 'commander';
-import start from '../src/half.js';
+// import compare from '../src/half.js';
+import parseAndRead from '../src/parsers.js';
 
 const program = new Command();
 
@@ -12,7 +13,7 @@ program
   .argument('<filepath1>')
   .argument('<filepath2>')
   .action((filepath1, filepath2) => {
-    console.log(start(filepath1, filepath2));
+    console.log(parseAndRead(filepath1, filepath2));
   });
 
 program.parse(console.log(process.argv));
