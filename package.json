@@ -4,7 +4,7 @@
   "description": "[![Actions Status](https://github.com/Xpamju/frontend-project-46/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/Xpamju/frontend-project-46/actions)",
   "main": "gendiff.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "type": "module",
   "author": "",
@@ -13,5 +13,16 @@
     "commander": "^13.1.0",
     "js-yaml": "^4.1.0",
     "lodash": "^4.17.21"
-  }
+  },
+  "bin": {
+    "frontend-project-46": "bin/gendiff.js"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.24.0",
+    "eslint": "^9.24.0",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^16.0.0",
+    "jest": "^29.7.0"
+  },
+  "keywords": []
 }
