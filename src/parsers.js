@@ -2,7 +2,12 @@ import { readFileSync } from 'fs';
 import path from 'path';
 import yml from 'js-yaml';
 import compare from './half.js';
-
+//
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+//
 
 const parseAndRead = (filepath1, filepath2) => {
 
@@ -31,4 +36,10 @@ const parseAndRead = (filepath1, filepath2) => {
 
   return compare(parsedData1, parsedData2);
 };
+//
+const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
+const file1 = getFixturePath('file1.json');
+const file2 = getFixturePath('file2.json')
+console.log(typeof(parseAndRead(file1, file2)))
+//
 export default parseAndRead;

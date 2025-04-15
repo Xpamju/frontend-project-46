@@ -2,18 +2,23 @@ import { fileURLToPath } from 'url';
 import { readFileSync } from 'fs';
 import path from 'path';
 import { dirname } from 'path';
-import compare from '../src/half.js';
+import parseAndRead from '../src/parsers';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
-const readFile = (filename) => readFileSync(getFixturePath(filename), 'utf-8');
+
 
 test('returns the correct object', () => {
-  const data1 = readFile('file1.json');
-  const data2 = readFile('file2.json');
-  const expected = readFile('expected.json');
-  const actual = compare(JSON.parse(data1), JSON.parse(data2));
+  const file1 = getFixturePath('file1.json');
+  const file2 = getFixturePath('file2.json');
+  const expectedFile = getFixturePath('expected.json');
+  
+  const expectedData = readFileSync(expectedFile, 'utf-8');
+  const expected = JSON.parse(expectedData); 
+
+  const actual = parseAndRead(file1, file2);
+
   expect(actual).toEqual(expected);
 });

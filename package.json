@@ -4,7 +4,7 @@
   "description": "[![Actions Status](https://github.com/Xpamju/frontend-project-46/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/Xpamju/frontend-project-46/actions)",
   "main": "gendiff.js",
   "scripts": {
-    "test": "jest"
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest"
   },
   "type": "module",
   "author": "",
