@@ -37,7 +37,7 @@ jobs:
 
       # Шаг 7: Загружаем отчет в QLTY (исправленная версия)
       - name: Upload coverage to QLTY
-        uses: qltysh/qlty-action@main
+        uses: qltysh/qlty-action/coverage@main
         with:
           coverage-token: ${{ secrets.QLTY_COVERAGE_TOKEN }}
           files: coverage/lcov.info
