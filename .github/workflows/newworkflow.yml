@@ -35,19 +35,17 @@ jobs:
           ls -la coverage/
           test -f coverage/lcov.info || exit 1
 
-      # Шаг 7: Загружаем отчет о покрытии в qlty-action
+      # Шаг 7: Загружаем отчет в QLTY (исправленная версия)
       - name: Upload coverage to QLTY
-        if: success()
-        uses: qltysh/qlty-action/coverage@main
+        uses: qltysh/qlty-action@main
         with:
-          coverage-token: ${{secrets.QLTY_COVERAGE_TOKEN}}
+          coverage-token: ${{ secrets.QLTY_COVERAGE_TOKEN }}
           files: coverage/lcov.info
 
-      # Шаг 8: Сохраняем отчет как артефакт (опционально)
-      - name: Upload coverage artifact
-        if: always()
-        uses: actions/upload-artifact@v3
+      # Шаг 8: Загружаем отчет как артефакт (исправленная версия)
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v4
         with:
           name: coverage-report
-          path: coverage
-          retention-days: 7
+          path: coverage/
+          retention-days: 5
