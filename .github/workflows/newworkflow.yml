@@ -1,0 +1,15 @@
+name: Coverage Check
+
+on: push
+
+jobs:
+  coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Coverage Analysis
+        uses: qltysh/qlty-action/coverage@main
+        with:
+          coverage-token: ${{ secrets.QLTY_COVERAGE_TOKEN }}
+          files: target/lcov.info
