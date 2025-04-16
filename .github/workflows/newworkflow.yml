@@ -1,6 +1,5 @@
-name: Coverage Check
-
-on: push
+name: Coverage
+on: [push]
 
 jobs:
   coverage:
@@ -8,8 +7,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Run Coverage Analysis
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests with coverage
+        run: npm test  # Или "npx nyc report --reporter=lcov"
+
+      - name: Upload coverage
         uses: qltysh/qlty-action/coverage@main
         with:
           coverage-token: ${{ secrets.QLTY_COVERAGE_TOKEN }}
-          files: target/lcov.info
+          files: coverage/lcov.info  # Путь к файлу
