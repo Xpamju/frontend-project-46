@@ -8,7 +8,7 @@ jobs:
       # Шаг 1: Получаем код из репозитория
       - uses: actions/checkout@v4
 
-      # Шаг 2: Устанавливаем Node.js (указываем вашу версию)
+      # Шаг 2: Устанавливаем Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
@@ -21,7 +21,7 @@ jobs:
 
       # Шаг 4: Запускаем линтер (ESLint)
       - name: Run ESLint
-        run: npx eslint .
+        run: npx eslint . --ignore-path .eslintignore
 
       # Шаг 5: Запускаем тесты с покрытием (Jest)
       - name: Run Tests
@@ -29,15 +29,25 @@ jobs:
         env:
           NODE_OPTIONS: '--experimental-vm-modules'
 
-      # Опционально: Загружаем отчет о покрытии (если используете сервисы типа Coveralls)
-      - name: Upload coverage
+      # Шаг 6: Проверяем наличие lcov-файла
+      - name: Verify coverage file
+        run: |
+          ls -la coverage/
+          test -f coverage/lcov.info || exit 1
+
+      # Шаг 7: Загружаем отчет о покрытии в qlty-action
+      - name: Upload coverage to QLTY
+        if: success()
+        uses: qltysh/qlty-action/coverage@main
+        with:
+          coverage-token: ${{secrets.QLTY_COVERAGE_TOKEN}}
+          files: coverage/lcov.info
+
+      # Шаг 8: Сохраняем отчет как артефакт (опционально)
+      - name: Upload coverage artifact
+        if: always()
         uses: actions/upload-artifact@v3
         with:
           name: coverage-report
           path: coverage
-
-      - name: Upload coverage
-        uses: qltysh/qlty-action/coverage@main
-        with:
-          coverage-token: ${{ secrets.QLTY_COVERAGE_TOKEN }}
-          files: coverage/lcov.info  # Путь к файлу
+          retention-days: 7
