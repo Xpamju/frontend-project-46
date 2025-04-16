@@ -1,6 +1,6 @@
 import { readFileSync } from 'fs';
 import path from 'path';
-import yml from 'js-yaml';
+import yaml from 'yaml';
 import compare from './half.js';
 //
 import { fileURLToPath } from 'url';
@@ -22,7 +22,7 @@ const parseAndRead = (filepath1, filepath2) => {
     if (format === '.json') {
         return JSON.parse(data);
       } else if (format === '.yml') {
-        return yml.parse(data);
+        return yaml.parse(data);
       } else {
         throw new Error(`Unsupported format: ${format}`); // выбрасываем ошибку, если формат файла не определён
       }

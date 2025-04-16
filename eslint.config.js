@@ -12,6 +12,7 @@ export default defineConfig([
   }, 
   rules: {
     '@typescript-eslint/no-unused-vars': 'off',
+    'eslint-comments/no-unused-disable': 'off'
   },
 },
     {
