@@ -1,6 +1,7 @@
 import { fileURLToPath } from 'url';
 import { readFileSync } from 'fs';
 import path from 'path';
+import yaml from 'yaml';
 import { dirname } from 'path';
 import parseAndRead from '../src/parsers.js';
 
@@ -20,5 +21,17 @@ test('returns the correct object', () => {
 
   const actual = parseAndRead(file1, file2);
 
+  expect(actual).toEqual(expected);
+});
+
+test('returns the correct object yml', ()=> {
+  const file1 = getFixturePath('file1.yml');
+  const file2 = getFixturePath('file2.yml');
+  const expectedFile = getFixturePath('expected.yml');
+  
+  const expectedData = readFileSync(expectedFile, 'utf-8');
+  const expected = yaml.parse(expectedData); 
+
+  const actual = parseAndRead(file1, file2);
   expect(actual).toEqual(expected);
 });
