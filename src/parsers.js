@@ -36,10 +36,5 @@ const parseAndRead = (filepath1, filepath2) => {
 
   return compare(parsedData1, parsedData2);
 };
-//
-const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
-const file1 = getFixturePath('file1.json');
-const file2 = getFixturePath('file2.json')
-console.log(typeof(parseAndRead(file1, file2)));
-//
+
 export default parseAndRead;

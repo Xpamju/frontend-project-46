@@ -5,49 +5,45 @@ jobs:
   test-and-lint:
     runs-on: ubuntu-latest
     steps:
+      # Шаг 1: Получаем код из репозитория
       - uses: actions/checkout@v4
 
-      - name: Cache node modules
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/.npm
-            node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-
+      # Шаг 2: Устанавливаем Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20'
+          cache: 'npm'
 
+      # Шаг 3: Устанавливаем зависимости
       - name: Install dependencies
         run: npm ci
 
+      # Шаг 4: Запускаем линтер (ESLint)
       - name: Run ESLint
         run: npx eslint . --ignore-path .eslintignore || echo "Lint errors found but continuing workflow"
 
+      # Шаг 5: Запускаем тесты с покрытием (Jest)
       - name: Run Tests
         run: npm test || echo "Tests failed but continuing workflow"
         env:
           NODE_OPTIONS: '--experimental-vm-modules'
 
+      # Шаг 6: Проверяем наличие lcov-файла
       - name: Verify coverage file
-        if: success()
         run: |
           ls -la coverage/
           test -f coverage/lcov.info || exit 1
 
+      # Шаг 7: Загружаем отчет в QLTY (исправленная версия)
       - name: Upload coverage to QLTY
-        if: success()
         uses: qltysh/qlty-action/coverage@main
         with:
           coverage-token: ${{ secrets.QLTY_COVERAGE_TOKEN }}
           files: coverage/lcov.info
 
-      - name: Upload coverage artifact
-        if: always()
+      # Шаг 8: Загружаем отчет как артефакт (исправленная версия)
+      - name: Upload coverage report
         uses: actions/upload-artifact@v4
         with:
           name: coverage-report
