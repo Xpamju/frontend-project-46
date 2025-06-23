@@ -129,7 +129,7 @@ const stylish = (diff) => {
     return lines.join('\n');
   };
 
-  return `{\n${iter(diff)}\n}`;
+  return `"{\n${iter(diff)}\n}"`;
 };
 
 export default stylish;
