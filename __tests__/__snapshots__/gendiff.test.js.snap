@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`JSON formatter formats complex nested diff to JSON 1`] = `
+"{
+  "type": "root",
+  "children": [
+    {
+      "key": "nested",
+      "type": "nested",
+      "children": [
+        {
+          "key": "inner",
+          "type": "changed",
+          "oldValue": "old",
+          "newValue": "new"
+        }
+      ]
+    }
+  ]
+}"
+`;

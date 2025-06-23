@@ -3,6 +3,7 @@ import { readFileSync } from 'fs';
 import path from 'path';
 import compare from '../src/half.js';
 import plain from '../formatters/plain.js';
+import jsonFormatter from '../formatters/json.js';
 
 
 import yaml from 'yaml';
@@ -679,3 +680,91 @@ describe('compare', () => {
   });
 });
 
+describe('JSON formatter', () => {
+  test('formats simple diff to JSON string', () => {
+    const diff = {
+      type: 'root',
+      children: [
+        {
+          key: 'key',
+          type: 'added',
+          value: 'value'
+        }
+      ]
+    };
+
+    const result = jsonFormatter(diff);
+    expect(result).toBe(JSON.stringify(diff, null, 2));
+  });
+
+  test('formats complex nested diff to JSON', () => {
+    const diff = {
+      type: 'root',
+      children: [
+        {
+          key: 'nested',
+          type: 'nested',
+          children: [
+            {
+              key: 'inner',
+              type: 'changed',
+              oldValue: 'old',
+              newValue: 'new'
+            }
+          ]
+        }
+      ]
+    };
+
+    const result = jsonFormatter(diff);
+    expect(result).toMatchSnapshot();
+  });
+
+  test('handles empty diff correctly', () => {
+    const diff = {
+      type: 'root',
+      children: []
+    };
+
+    const result = jsonFormatter(diff);
+    expect(result).toBe('{\n  "type": "root",\n  "children": []\n}');
+  });
+
+  test('maintains proper indentation', () => {
+    const diff = {
+      type: 'root',
+      children: [
+        {
+          key: 'test',
+          type: 'unchanged',
+          value: 123
+        }
+      ]
+    };
+
+    const result = jsonFormatter(diff);
+    const lines = result.split('\n');
+    expect(lines[0]).toBe('{');
+    expect(lines[1]).toBe('  "type": "root",');
+    expect(lines[2]).toBe('  "children": [');
+    expect(lines[3]).toBe('    {');
+  });
+
+  test('preserves all diff properties', () => {
+    const diff = {
+      type: 'root',
+      children: [
+        {
+          key: 'prop',
+          type: 'changed',
+          oldValue: 1,
+          newValue: 2,
+          customProp: 'test'
+        }
+      ]
+    };
+
+    const result = jsonFormatter(diff);
+    expect(result).toContain('"customProp": "test"');
+  });
+});
