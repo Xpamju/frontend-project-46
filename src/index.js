@@ -25,7 +25,7 @@ const parseFile = (filepath) => {
   }
 };
 
-const parseAndRead = (filepath1, filepath2, format = 'stylish') => {
+const genDiff = (filepath1, filepath2, format = 'stylish') => {
   try {
     const parsedData1 = parseFile(filepath1);
     const parsedData2 = parseFile(filepath2);
@@ -37,7 +37,7 @@ const parseAndRead = (filepath1, filepath2, format = 'stylish') => {
   }
 };
 
-export default parseAndRead;
+export default genDiff;
 // const parseAndRead = (filepath1, filepath2) => {
 
 //   const fullPath1 = path.resolve(process.cwd(), filepath1);

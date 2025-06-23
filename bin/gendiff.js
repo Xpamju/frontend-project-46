@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { Command } from 'commander';
 // import compare from '../src/half.js';
-import parseAndRead from '../src/parsers.js';
+import genDiff from '../src/index.js';
 import getFormatter from '../formatters/index.js';
 const program = new Command();
 
@@ -15,7 +15,7 @@ program
   .action((filepath1, filepath2, options) => {
     try {
       // Получаем неотформатированный diff
-      const diff = parseAndRead(filepath1, filepath2);
+      const diff = genDiff(filepath1, filepath2);
       // Получаем нужный форматтер
       const format = getFormatter(options.format);
       // Форматируем и выводим результат
