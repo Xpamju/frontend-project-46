@@ -70,57 +70,31 @@ import _ from 'lodash';
 
 // export default stylish;
 
-const formatValue = (value, depth) => {
-  if (_.isPlainObject(value)) {
-    if (_.isEmpty(value)) {
-      return '{}';
-    }
-    const indent = '    '.repeat(depth);
-    const lines = Object.entries(value)
-      .map(([key, val]) => `${indent}${key}: ${formatValue(val, depth + 1)}`);
-    return `{\n${lines.join('\n')}\n${'    '.repeat(depth - 1)}}`;
-  }
-  
-  if (value === null) {
-    return 'null';
-  }
-  
-  if (typeof value === 'boolean') {
-    return value ? 'true' : 'false';
-  }
-  
-  return String(value);
-};
-
 const stylish = (diff) => {
   const iter = (node, depth = 1) => {
     const indent = '    '.repeat(depth - 1);
     const lines = node.children.flatMap((child) => {
       const { key, type } = child;
+      const currentIndent = `${indent}    `;
       
       switch (type) {
         case 'added':
           return `${indent}  + ${key}: ${formatValue(child.value, depth + 1)}`;
-          
         case 'removed':
           return `${indent}  - ${key}: ${formatValue(child.value, depth + 1)}`;
-          
         case 'unchanged':
           return `${indent}    ${key}: ${formatValue(child.value, depth + 1)}`;
-          
         case 'changed':
           return [
             `${indent}  - ${key}: ${formatValue(child.oldValue, depth + 1)}`,
             `${indent}  + ${key}: ${formatValue(child.newValue, depth + 1)}`
           ];
-          
         case 'nested':
           return [
             `${indent}    ${key}: {`,
             iter(child, depth + 1),
             `${indent}    }`
           ];
-          
         default:
           throw new Error(`Unknown type: ${type}`);
       }
@@ -129,7 +103,19 @@ const stylish = (diff) => {
     return lines.join('\n');
   };
 
-  return `"{\n${iter(diff)}\n}"`;
+  const formatValue = (value, depth) => {
+    if (value === null) return 'null';
+    if (typeof value === 'boolean') return value ? 'true' : 'false';
+    if (typeof value !== 'object') return String(value);
+    
+    const indent = '    '.repeat(depth);
+    const lines = Object.entries(value)
+      .map(([key, val]) => `${indent}${key}: ${formatValue(val, depth + 1)}`);
+    
+    return `{\n${lines.join('\n')}\n${'    '.repeat(depth - 1)}}`;
+  };
+
+  return `{\n${iter(diff)}\n}`;
 };
 
 export default stylish;
