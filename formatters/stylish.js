@@ -73,9 +73,10 @@ import _ from 'lodash';
 const stylish = (diff) => {
   const iter = (node, depth = 1) => {
     const indent = '    '.repeat(depth - 1);
+    const currentIndent = '    '.repeat(depth);
+    
     const lines = node.children.flatMap((child) => {
       const { key, type } = child;
-      const currentIndent = `${indent}    `;
       
       switch (type) {
         case 'added':
@@ -99,19 +100,19 @@ const stylish = (diff) => {
           throw new Error(`Unknown type: ${type}`);
       }
     });
-    
+
     return lines.join('\n');
   };
 
   const formatValue = (value, depth) => {
     if (value === null) return 'null';
     if (typeof value === 'boolean') return value ? 'true' : 'false';
-    if (typeof value !== 'object') return String(value);
-    
+    if (typeof value !== 'object') return value;
+
     const indent = '    '.repeat(depth);
     const lines = Object.entries(value)
       .map(([key, val]) => `${indent}${key}: ${formatValue(val, depth + 1)}`);
-    
+
     return `{\n${lines.join('\n')}\n${'    '.repeat(depth - 1)}}`;
   };
 
