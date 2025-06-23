@@ -21,12 +21,11 @@
     "lodash": "^4.17.21"
   },
   "bin": {
-    "gendiff": "bin/gendiff.js"  // ✅ Исправлено имя
+    "gendiff": "bin/gendiff.js"
   },
-  "exports": {  // ✅ Добавлено
+  "exports": {
     ".": "./src/index.js"
   },
   "devDependencies": {
-    "jest": "^29.7.0"  // ✅ Только jest (остальное удалено)
-  }
+    "jest": "^29.7.0"
 }
