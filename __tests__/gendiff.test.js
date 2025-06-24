@@ -8,11 +8,11 @@ import getFormatter from '../formatters/index.js'
 import { exec } from 'child_process'
 import stylish from '../formatters/stylish.js'
 
-const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename)
+const getFixturePath = filename => path.join(__dirname, '..', '__fixtures__', filename)
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const cliPath = path.join(__dirname, '..', 'bin', 'gendiff.js')
 
-const runCli = (args) => new Promise((resolve) => {
+const runCli = args => new Promise((resolve) => {
   exec(`node ${cliPath} ${args}`, (error, stdout, stderr) => {
     resolve({
       code: error ? error.code : 0,
@@ -88,11 +88,11 @@ describe('Plain formatter', () => {
         {
           key: 'follow',
           type: 'added',
-          value: false
-        }
-      ]
-    }
-    expect(plain(diff)).toBe("Property 'follow' was added with value: false")
+          value: false,
+        },
+      ],
+    };
+    expect(plain(diff)).toBe('Property "follow" was added with value: false')
   })
 
   test('formats removed property', () => {
@@ -104,8 +104,8 @@ describe('Plain formatter', () => {
           type: 'removed',
           value: 50
         }
-      ]
-    }
+      ],
+    };
     expect(plain(diff)).toBe("Property 'timeout' was removed")
   })
 
@@ -117,10 +117,10 @@ describe('Plain formatter', () => {
           key: 'verbose',
           type: 'changed',
           oldValue: true,
-          newValue: false
+          newValue: false,
         }
-      ]
-    }
+      ],
+    };
     expect(plain(diff)).toBe("Property 'verbose' was updated. From true to false")
   })
 
@@ -131,10 +131,10 @@ describe('Plain formatter', () => {
         {
           key: 'settings',
           type: 'added',
-          value: { option: 'value' }
+          value: { option: 'value' },
         }
-      ]
-    }
+      ],
+    };
     expect(plain(diff)).toBe("Property 'settings' was added with value: [complex value]")
   })
 
@@ -150,7 +150,7 @@ describe('Plain formatter', () => {
               key: 'setting1',
               type: 'changed',
               oldValue: 'value1',
-              newValue: 'value2'
+              newValue: 'value2',
             }
           ]
         }
@@ -237,9 +237,9 @@ describe('Plain formatter', () => {
           type: 'changed',
           oldValue: 'old',
           newValue: 'new'
-        }
-      ]
-    }
+        },
+      ],
+    };
     expect(plain(diff)).toBe("Property 'changed' was updated. From 'old' to 'new'")
   })
 })
@@ -267,7 +267,7 @@ describe('Stylish formatter', () => {
       children: [{
         key: 'settings',
         type: 'removed',
-        value: { debug: true, level: 'info' }
+        value: { debug: true, level: 'info' },
       }]
     }
     const expected = [
@@ -288,15 +288,15 @@ describe('Stylish formatter', () => {
         key: 'verbose',
         type: 'changed',
         oldValue: false,
-        newValue: [1, 2, 3]
-      }]
+        newValue: [1, 2, 3],
+      }],
     }
 
     const expected = [
       '{',
       '  - verbose: false',
       '  + verbose: [1, 2, 3]',
-      '}'
+      '}',
     ].join('\n')
     expect(stylish(diff)).toEqual(expected)
   })
