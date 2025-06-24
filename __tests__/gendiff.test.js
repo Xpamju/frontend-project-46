@@ -7,10 +7,7 @@ import jsonFormatter from '../formatters/json.js'
 import getFormatter from '../formatters/index.js'
 import { exec } from 'child_process'
 import stylish from '../formatters/stylish.js'
-import _ from 'lodash'
 
-const __filename = fileURLToPath(import.meta.url)
-// const __dirname = dirname(__filename)
 const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename)
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const cliPath = path.join(__dirname, '..', 'bin', 'gendiff.js')
@@ -25,7 +22,6 @@ const runCli = (args) => new Promise((resolve) => {
     })
   })
 })
-
 describe('CLI', () => {
   test('should support plain format', async () => {
     const file1 = getFixturePath('file1.json')
@@ -83,77 +79,6 @@ describe('CLI', () => {
     expect(stderr).toMatch(/Error/)
   })
 })
-
-// test('returns the correct object', () => {
-//   const file1 = getFixturePath('file1.json');
-//   const file2 = getFixturePath('file2.json');
-//   const expectedFile = getFixturePath('expected.json');
-  
-//   const expectedData = readFileSync(expectedFile, 'utf-8');
-//   const expected = JSON.parse(expectedData); 
-
-//   const actual = genDiff(file1, file2);
-
-
-//   expect(actual).toEqual(expected);
-// });
-
-
-// test('returns the correct object yml', ()=> {
-//   const file1 = getFixturePath('file1.yml');
-//   const file2 = getFixturePath('file2.yml');
-//   const expectedFile = getFixturePath('expected.yml');
-
-//   const expectedData = readFileSync(expectedFile, 'utf-8');
-//   const expected = yaml.parse(expectedData); 
-//   const actual = parseAndRead(file1, file2);
-
-//   expect(actual).toEqual(expected);
-// });
-
-// test('returns the correct diff output', () => {
-//   const file1 = getFixturePath('filenest1.yml');
-//   const file2 = getFixturePath('filenest2.yml');
-//   const expectedDiff = readFileSync(getFixturePath('expected.txt'), 'utf-8');
-
-//   const actual = parseAndRead(file1, file2);
-
-//   expect(actual.trim()).toEqual(expectedDiff.trim());
-// });
-
-// test('returns the correct diff output', () => {
-//   const file1 = getFixturePath('filenest1.json');
-//   const file2 = getFixturePath('filenest2.json');
-//   const expectedDiff = readFileSync(getFixturePath('expected.txt'), 'utf-8');
-//   const actual = parseAndRead(file1, file2);
-//   // Сравниваем с допущением различий в пробелах
-//   expect(actual.trim()).toEqual(expectedDiff.trim());
-// });
-
-// const testFormatter = (formatterName, expectedFileName) => (fileType) => {
-//   const file1 = getFixturePath(`filenest1.${fileType}`);
-//   const file2 = getFixturePath(`filenest2.${fileType}`);
-//   const expected = readFileSync(getFixturePath(formatterName), 'utf-8');
-  
-//   const diff = parseAndRead(file1, file2);
-//   const formatter = getFormatter(formatterName);
-//   expect(formatter(diff).toEqual(expected));
-// };
-
-// test('plain formatter', () => {
-//   const test = testFormatter('plain', 'expectedPlain.txt');
-//   test('json');
-//   test('yml');
-// });
-
-
-// test('stylish formatter', () => {
-//   const test = testFormatter('stylish', 'expected.txt');
-//   test('json');
-//   test('yml');
-// });
-
-// plain test ////
 
 describe('Plain formatter', () => {
   test('formats added property', () => {
@@ -232,7 +157,7 @@ describe('Plain formatter', () => {
       ]
     }
     expect(plain(diff)).toBe("Property 'common.setting1' was updated. From 'value1' to 'value2'")
-  });
+  })
 
   test('formats multiple changes correctly', () => {
     const diff = {
@@ -280,8 +205,7 @@ describe('Plain formatter', () => {
           value: 'hello'
         }
       ]
-    };
-
+    }
     expect(plain(diff)).toBe("Property 'message' was added with value: 'hello'")
   })
 
@@ -295,8 +219,7 @@ describe('Plain formatter', () => {
           value: null
         }
       ]
-    };
-
+    }
     expect(plain(diff)).toBe("Property 'value' was added with value: null")
   })
 
@@ -330,8 +253,7 @@ describe('Stylish formatter', () => {
         type: 'added',
         value: 100
       }]
-    };
-
+    }
     const expected = [
       '{',
       '  + timeout: 100',
