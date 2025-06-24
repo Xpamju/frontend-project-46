@@ -561,7 +561,7 @@ describe('JSON formatter', () => {
           value: 'value',
         },
       ],
-    },
+    }
     const result = jsonFormatter(diff)
     expect(result).toBe(JSON.stringify(diff, null, 2))
   })
