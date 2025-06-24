@@ -16,9 +16,8 @@ const parseFile = (filepath) => {
     case '.yaml':
       return yaml.parse(data)
     default:
-      throw new Error(`Unsupported file format: ${format}`
-
-      )}
+      throw new Error(`Unsupported file format: ${format}`)
+    };
 }
 
 const genDiff = (filepath1, filepath2, format = 'stylish') => {
@@ -27,11 +26,10 @@ const genDiff = (filepath1, filepath2, format = 'stylish') => {
     const parsedData2 = parseFile(filepath2)
     const diff = compare(parsedData1, parsedData2)
     const formatter = getFormatter(format)
-    return formatter(diff); // Возвращаем отформатированную строку
+    return formatter(diff) // Возвращаем отформатированную строку
   } catch (error) {
-    throw new Error(`Error while comparing files: ${error.message}`
-      
-    )}
+    throw new Error(`Error while comparing files: ${error.message}`)
+  };
 }
 
 export default genDiff
