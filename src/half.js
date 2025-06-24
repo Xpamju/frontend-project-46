@@ -14,7 +14,7 @@ const buildDiff = (data1, data2) => {
       return {
         key,
         type: 'added', 
-        value: data2[key]
+        value: data2[key],
       }
     }
     const value1 = data1[key]
@@ -23,25 +23,24 @@ const buildDiff = (data1, data2) => {
       return {
         key,
         type: 'unchanged',
-        value: value1
-      };
+        value: value1,
+      }
     }   
     if (_.isPlainObject(value1) && _.isPlainObject(value2)) {
       return {
         key,
         type: 'nested',
         children: buildDiff(value1, value2)
-      };
+      }
     }
     return {
       key,
       type: 'changed',
       oldValue: value1,
-      newValue: value2
+      newValue: value2,
     }
   })
 }
-
 const compare = (data1, data2) => ({
   type: 'root',
   children: buildDiff(data1, data2)
