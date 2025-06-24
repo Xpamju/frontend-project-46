@@ -4,11 +4,6 @@ import path from 'path'
 import compare from '../src/half.js'
 import plain from '../formatters/plain.js'
 import jsonFormatter from '../formatters/json.js'
-
-
-import yaml from 'yaml';
-import { dirname } from 'path';
-import genDiff from '../src/index.js';
 import getFormatter from '../formatters/index.js'
 import { exec } from 'child_process'
 import stylish from '../formatters/stylish.js'
@@ -16,15 +11,15 @@ import _ from 'lodash'
 
 
 
-const __filename = fileURLToPath(import.meta.url);
-// const __dirname = dirname(__filename);
+const __filename = fileURLToPath(import.meta.url)
+// const __dirname = dirname(__filename)
 
-const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
+const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename)
 
 
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const cliPath = path.join(__dirname, '..', 'bin', 'gendiff.js');
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
+const cliPath = path.join(__dirname, '..', 'bin', 'gendiff.js')
 
 const runCli = (args) => new Promise((resolve) => {
   exec(`node ${cliPath} ${args}`, (error, stdout, stderr) => {
