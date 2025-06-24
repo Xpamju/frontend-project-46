@@ -103,10 +103,10 @@ describe('Plain formatter', () => {
           key: 'timeout',
           type: 'removed',
           value: 50,
-        }
+        },
       ],
     }
-    expect(plain(diff)).toBe("Property 'timeout' was removed")
+    expect(plain(diff)).toBe('Property "timeout" was removed')
   })
 
   test('formats changed property', () => {
@@ -118,10 +118,10 @@ describe('Plain formatter', () => {
           type: 'changed',
           oldValue: true,
           newValue: false,
-        }
+        },
       ],
     }
-    expect(plain(diff)).toBe("Property 'verbose' was updated. From true to false")
+    expect(plain(diff)).toBe('Property "verbose" was updated. From true to false')
   })
 
   test('formats nested objects as [complex value]', () => {
@@ -132,10 +132,10 @@ describe('Plain formatter', () => {
           key: 'settings',
           type: 'added',
           value: { option: 'value' },
-        }
+        },
       ],
     }
-    expect(plain(diff)).toBe("Property 'settings' was added with value: [complex value]")
+    expect(plain(diff)).toBe('Property "settings" was added with value: [complex value]')
   })
 
   test('formats nested properties correctly', () => {
@@ -153,7 +153,7 @@ describe('Plain formatter', () => {
               newValue: 'value2',
             }
           ],
-        }
+        },
       ],
     }
     expect(plain(diff)).toBe("Property 'common.setting1' was updated. From 'value1' to 'value2'")
@@ -184,13 +184,13 @@ describe('Plain formatter', () => {
               newValue: null,
             }
           ],
-        }
+        },
       ],
     }
     const expected = [
-      "Property 'follow' was added with value: false",
-      "Property 'timeout' was removed",
-      "Property 'common.setting' was updated. From true to null"
+      'Property "follow" was added with value: false',
+      'Property "timeout" was removed',
+      'Property "common.setting" was updated. From true to null'
     ].join('\n')
     expect(plain(diff)).toBe(expected)
   })
@@ -202,11 +202,11 @@ describe('Plain formatter', () => {
         {
           key: 'message',
           type: 'added',
-          value: 'hello'
-        }
-      ]
+          value: 'hello',
+        },
+      ],
     }
-    expect(plain(diff)).toBe("Property 'message' was added with value: 'hello'")
+    expect(plain(diff)).toBe('Property "message" was added with value: "hello"')
   })
 
   test('formats null values correctly', () => {
@@ -216,11 +216,11 @@ describe('Plain formatter', () => {
         {
           key: 'value',
           type: 'added',
-          value: null
-        }
-      ]
+          value: null,
+        },
+      ],
     }
-    expect(plain(diff)).toBe("Property 'value' was added with value: null")
+    expect(plain(diff)).toBe('Property "value" was added with value: null')
   })
 
   test('ignores unchanged properties', () => {
@@ -230,7 +230,7 @@ describe('Plain formatter', () => {
         {
           key: 'unchanged',
           type: 'unchanged',
-          value: 'same'
+          value: 'same',
         },
         {
           key: 'changed',
@@ -239,8 +239,8 @@ describe('Plain formatter', () => {
           newValue: 'new',
         },
       ],
-    };
-    expect(plain(diff)).toBe("Property 'changed' was updated. From 'old' to 'new'")
+    }
+    expect(plain(diff)).toBe('Property "changed" was updated. From "old" to "new"')
   })
 })
 // тесты для стайлиш ////////////////////////////////////
@@ -257,9 +257,9 @@ describe('Stylish formatter', () => {
     const expected = [
       '{',
       '  + timeout: 100',
-      '}'
-    ].join('\n');
-    expect(stylish(diff)).toEqual(expected);
+      '}',
+    ].join('\n')
+    expect(stylish(diff)).toEqual(expected)
   })
   test('formats removed nested object', () => {
     const diff = {
@@ -268,7 +268,7 @@ describe('Stylish formatter', () => {
         key: 'settings',
         type: 'removed',
         value: { debug: true, level: 'info' },
-      }]
+      }],
     }
     const expected = [
       '{',
@@ -277,7 +277,7 @@ describe('Stylish formatter', () => {
       '        level: info',
       '    }',
       '}'
-    ].join('\n');
+    ].join('\n')
     expect(stylish(diff)).toEqual(expected)
   })
 
@@ -368,7 +368,6 @@ describe('Stylish formatter', () => {
         value: 'Hello\nWorld!',
       }],
     }
-
     const expected = [
       '{',
       '  + message: "Hello\\nWorld!"',
@@ -377,7 +376,6 @@ describe('Stylish formatter', () => {
     expect(stylish(diff)).toEqual(expected)
   })
 })
-
 // индекс js в forrmattere //////// 
 describe('Formatter factory', () => {
   test('returns stylish formatter for "stylish" format', () => {
@@ -391,7 +389,7 @@ describe('Formatter factory', () => {
   })
 
   test('throws error for unknown format', () => {
-    expect(() => getFormatter('unknown')).toThrow('Unknown format: unknown');
+    expect(() => getFormatter('unknown')).toThrow('Unknown format: unknown')
   })
 
   test('formatters produce correct output', () => {
@@ -416,9 +414,8 @@ describe('Formatter factory', () => {
 describe('compare', () => {
   test('should detect added properties', () => {
     const obj1 = {};
-    const obj2 = { newKey: 'value' };
-    
-    const result = compare(obj1, obj2);
+    const obj2 = { newKey: 'value' }
+    const result = compare(obj1, obj2)
     expect(result.children).toContainEqual({
       key: 'newKey',
       type: 'added',
@@ -465,10 +462,9 @@ describe('compare', () => {
   })
 
   test('should handle nested objects', () => {
-    const obj1 = { nested: { key: 'value' } };
-    const obj2 = { nested: { key: 'changed' } };
-    
-    const result = compare(obj1, obj2);
+    const obj1 = { nested: { key: 'value' } }
+    const obj2 = { nested: { key: 'changed' } }
+    const result = compare(obj1, obj2)
     expect(result.children[0]).toMatchObject({
       key: 'nested',
       type: 'nested',
@@ -484,24 +480,23 @@ describe('compare', () => {
   })
 
   test('should sort keys alphabetically', () => {
-    const obj1 = { b: 1, a: 1 };
-    const obj2 = { a: 1, c: 1 };
-    
-    const result = compare(obj1, obj2);
-    const keys = result.children.map(node => node.key);
-    expect(keys).toEqual(['a', 'b', 'c']);
+    const obj1 = { b: 1, a: 1 }
+    const obj2 = { a: 1, c: 1 }
+    const result = compare(obj1, obj2)
+    const keys = result.children.map(node => node.key)
+    expect(keys).toEqual(['a', 'b', 'c'])
   });
 
   test('should build correct structure for complex objects', () => {
     const obj1 = {
       common: { setting1: 'Value 1', setting2: 200 },
-      group1: { a: 'a' }
+      group1: { a: 'a' },
     }
     const obj2 = {
       common: { setting1: 'Value 1', setting3: true },
-      group2: { b: 'b' }
+      group2: { b: 'b' },
     }
-    const result = compare(obj1, obj2);
+    const result = compare(obj1, obj2)
     expect(result).toEqual({
       type: 'root',
       children: [
@@ -520,14 +515,14 @@ describe('compare', () => {
               key: 'setting2',
               type: 'removed',
               value: 200,
-              depth: 2
+              depth: 2,
             },
             {
               key: 'setting3',
               type: 'added',
               value: true,
               depth: 2,
-            }
+            },
           ],
         },
         {
@@ -547,7 +542,7 @@ describe('compare', () => {
   })
 
   test('should handle empty objects', () => {
-    const result = compare({}, {});
+    const result = compare({}, {})
     expect(result).toEqual({
       type: 'root',
       children: [],
@@ -563,10 +558,10 @@ describe('JSON formatter', () => {
         {
           key: 'key',
           type: 'added',
-          value: 'value'
-        }
-      ]
-    }
+          value: 'value',
+        },
+      ],
+    },
     const result = jsonFormatter(diff)
     expect(result).toBe(JSON.stringify(diff, null, 2))
   })
@@ -584,9 +579,9 @@ describe('JSON formatter', () => {
               type: 'changed',
               oldValue: 'old',
               newValue: 'new',
-            }
+            },
           ],
-        }
+        },
       ],
     }
     const result = jsonFormatter(diff)
