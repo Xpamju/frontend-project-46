@@ -1,18 +1,18 @@
-import { fileURLToPath } from 'url';
-import { readFileSync } from 'fs';
-import path from 'path';
-import compare from '../src/half.js';
-import plain from '../formatters/plain.js';
-import jsonFormatter from '../formatters/json.js';
+import { fileURLToPath } from 'url'
+import { readFileSync } from 'fs'
+import path from 'path'
+import compare from '../src/half.js'
+import plain from '../formatters/plain.js'
+import jsonFormatter from '../formatters/json.js'
 
 
 import yaml from 'yaml';
 import { dirname } from 'path';
 import genDiff from '../src/index.js';
-import getFormatter from '../formatters/index.js';
-import { exec } from 'child_process';
-import stylish from '../formatters/stylish.js';
-import _ from 'lodash';
+import getFormatter from '../formatters/index.js'
+import { exec } from 'child_process'
+import stylish from '../formatters/stylish.js'
+import _ from 'lodash'
 
 
 
