@@ -3,9 +3,6 @@ import path from 'path'
 import yaml from 'yaml'
 import compare from './half.js'
 import getFormatter from '../formatters/index.js'
-import { fileURLToPath } from 'url'
-
-const __filename = fileURLToPath(import.meta.url)
 
 const parseFile = (filepath) => {
   const fullPath = path.resolve(process.cwd(), filepath)
@@ -19,20 +16,22 @@ const parseFile = (filepath) => {
     case '.yaml':
       return yaml.parse(data)
     default:
-      throw new Error(`Unsupported file format: ${format}`)
-  }
-};
+      throw new Error(`Unsupported file format: ${format}`
+
+      )}
+}
 
 const genDiff = (filepath1, filepath2, format = 'stylish') => {
   try {
-    const parsedData1 = parseFile(filepath1);
-    const parsedData2 = parseFile(filepath2);
-    const diff = compare(parsedData1, parsedData2);
-    const formatter = getFormatter(format);
+    const parsedData1 = parseFile(filepath1)
+    const parsedData2 = parseFile(filepath2)
+    const diff = compare(parsedData1, parsedData2)
+    const formatter = getFormatter(format)
     return formatter(diff); // Возвращаем отформатированную строку
   } catch (error) {
-    throw new Error(`Error while comparing files: ${error.message}`)
-  }
-};
+    throw new Error(`Error while comparing files: ${error.message}`
+      
+    )}
+}
 
 export default genDiff
