@@ -1,9 +1,9 @@
 #!/usr/bin/env node
-import { Command } from 'commander';
-// import compare from '../src/half.js';
-import genDiff from '../src/index.js';
-// import getFormatter from '../formatters/index.js';
-const program = new Command();
+import { Command } from 'commander'
+// import compare from '../src/half.js'
+import genDiff from '../src/index.js'
+// import getFormatter from '../formatters/index.js'
+const program = new Command()
 
 // program
 //   .name('gendiff')
@@ -15,19 +15,18 @@ const program = new Command();
 //   .action((filepath1, filepath2, options) => {
 //     try {
 //       // Получаем неотформатированный diff
-//       const diff = genDiff(filepath1, filepath2);
+//       const diff = genDiff(filepath1, filepath2)
 //       // Получаем нужный форматтер
-//       const format = getFormatter(options.format);
+//       const format = getFormatter(options.format)
 //       // Форматируем и выводим результат
-//       console.log(format(diff));
+//       console.log(format(diff))
 //     } catch (error) {
-//       console.error(error.message);
-//       process.exit(1);
+//       console.error(error.message)
+//       process.exit(1)
 //     }
 //   });
 
-// program.parse(process.argv);
-
+// program.parse(process.argv)
 
 program
   .name('gendiff')
@@ -39,12 +38,11 @@ program
   .action((filepath1, filepath2, options) => {
     try {
       // Получаем УЖЕ ОТФОРМАТИРОВАННУЮ строку
-      const result = genDiff(filepath1, filepath2, options.format);
-      console.log(result);
+      const result = genDiff(filepath1, filepath2, options.format)
+      console.log(result)
     } catch (error) {
-      console.error(error.message);
-      process.exit(1);
+      console.error(error.message)
+      process.exit(1)
     }
-  });
-
-program.parse(process.argv);
+  })
+program.parse(process.argv)

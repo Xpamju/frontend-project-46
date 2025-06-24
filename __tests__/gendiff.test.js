@@ -9,15 +9,9 @@ import { exec } from 'child_process'
 import stylish from '../formatters/stylish.js'
 import _ from 'lodash'
 
-
-
 const __filename = fileURLToPath(import.meta.url)
 // const __dirname = dirname(__filename)
-
 const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename)
-
-
-
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const cliPath = path.join(__dirname, '..', 'bin', 'gendiff.js')
 
@@ -28,77 +22,67 @@ const runCli = (args) => new Promise((resolve) => {
       error,
       stdout,
       stderr,
-    });
-  });
-});
-
+    })
+  })
+})
 
 describe('CLI', () => {
-
+  test('should support plain format', async () => {
+    const file1 = getFixturePath('file1.json')
+    const file2 = getFixturePath('file2.json')
+    const expected = readFileSync(getFixturePath('expected-json.txt'), 'utf-8')
+    const { stdout } = await runCli(`${file1} ${file2}`)
+    expect(stdout.trim()).toEqual(expected.trim())
+  })
 
   test('should support plain format', async () => {
-    const file1 = getFixturePath('file1.json');
-    const file2 = getFixturePath('file2.json');
-    const expected = readFileSync(getFixturePath('expected-json.txt'), 'utf-8');
-    
-    const { stdout } = await runCli(`${file1} ${file2}`);
-    expect(stdout.trim()).toEqual(expected.trim());
-  });
-
-
-  test('should support plain format', async () => {
-    const file1 = getFixturePath('file1.yml');
-    const file2 = getFixturePath('file2.yml');
-    const expected = readFileSync(getFixturePath('expected-yaml.txt'), 'utf-8');
-    
-    const { stdout } = await runCli(`${file1} ${file2}`);
-    expect(stdout.trim()).toEqual(expected.trim());
-  });
-
+    const file1 = getFixturePath('file1.yml')
+    const file2 = getFixturePath('file2.yml')
+    const expected = readFileSync(getFixturePath('expected-yaml.txt'), 'utf-8')
+    const { stdout } = await runCli(`${file1} ${file2}`)
+    expect(stdout.trim()).toEqual(expected.trim())
+  })
 
   test('should output stylish format by default', async () => {
-    const file1 = getFixturePath('filenest1.json');
-    const file2 = getFixturePath('filenest2.json');
-    const expected = readFileSync(getFixturePath('expected.txt'), 'utf-8');
-    
-    const { stdout } = await runCli(`${file1} ${file2}`);
-    expect(stdout.trim()).toEqual(expected.trim());
-  });
+    const file1 = getFixturePath('filenest1.json')
+    const file2 = getFixturePath('filenest2.json')
+    const expected = readFileSync(getFixturePath('expected.txt'), 'utf-8')
+    const { stdout } = await runCli(`${file1} ${file2}`)
+    expect(stdout.trim()).toEqual(expected.trim())
+  })
 
   test('should support plain format', async () => {
-    const file1 = getFixturePath('filenest1.json');
-    const file2 = getFixturePath('filenest2.json');
-    const expected = readFileSync(getFixturePath('expectedPlain.txt'), 'utf-8');
-    
-    const { stdout } = await runCli(`${file1} ${file2} --format=plain`);
-    expect(stdout.trim()).toEqual(expected.trim());
-  });
+    const file1 = getFixturePath('filenest1.json')
+    const file2 = getFixturePath('filenest2.json')
+    const expected = readFileSync(getFixturePath('expectedPlain.txt'), 'utf-8')
+    const { stdout } = await runCli(`${file1} ${file2} --format=plain`)
+    expect(stdout.trim()).toEqual(expected.trim())
+  })
+
   test('should output stylish format by default', async () => {
-    const file1 = getFixturePath('filenest1.yml');
-    const file2 = getFixturePath('filenest2.yml');
-    const expected = readFileSync(getFixturePath('expected.txt'), 'utf-8');
-    
-    const { stdout } = await runCli(`${file1} ${file2}`);
-    expect(stdout.trim()).toEqual(expected.trim());
-  });
+    const file1 = getFixturePath('filenest1.yml')
+    const file2 = getFixturePath('filenest2.yml')
+    const expected = readFileSync(getFixturePath('expected.txt'), 'utf-8')
+    const { stdout } = await runCli(`${file1} ${file2}`)
+    expect(stdout.trim()).toEqual(expected.trim())
+  })
 
   test('should support plain format', async () => {
-    const file1 = getFixturePath('filenest1.yml');
-    const file2 = getFixturePath('filenest2.yml');
-    const expected = readFileSync(getFixturePath('expectedPlain.txt'), 'utf-8');
-    
-    const { stdout } = await runCli(`${file1} ${file2} --format=plain`);
-    expect(stdout.trim()).toEqual(expected.trim());
-  });
+    const file1 = getFixturePath('filenest1.yml')
+    const file2 = getFixturePath('filenest2.yml')
+    const expected = readFileSync(getFixturePath('expectedPlain.txt'), 'utf-8')
+    const { stdout } = await runCli(`${file1} ${file2} --format=plain`)
+    expect(stdout.trim()).toEqual(expected.trim())
+  })
+
   test('should show error for non-existent file', async () => {
-    const file1 = getFixturePath('nonexistent.json');
-    const file2 = getFixturePath('file2.json');
-    
-    const { code, stderr } = await runCli(`${file1} ${file2}`);
-    expect(code).not.toBe(0);
-    expect(stderr).toMatch(/Error/);
-  });
-});
+    const file1 = getFixturePath('nonexistent.json')
+    const file2 = getFixturePath('file2.json')
+    const { code, stderr } = await runCli(`${file1} ${file2}`)
+    expect(code).not.toBe(0)
+    expect(stderr).toMatch(/Error/)
+  })
+})
 
 // test('returns the correct object', () => {
 //   const file1 = getFixturePath('file1.json');
@@ -182,10 +166,9 @@ describe('Plain formatter', () => {
           value: false
         }
       ]
-    };
-
-    expect(plain(diff)).toBe("Property 'follow' was added with value: false");
-  });
+    }
+    expect(plain(diff)).toBe("Property 'follow' was added with value: false")
+  })
 
   test('formats removed property', () => {
     const diff = {
@@ -197,10 +180,9 @@ describe('Plain formatter', () => {
           value: 50
         }
       ]
-    };
-
-    expect(plain(diff)).toBe("Property 'timeout' was removed");
-  });
+    }
+    expect(plain(diff)).toBe("Property 'timeout' was removed")
+  })
 
   test('formats changed property', () => {
     const diff = {
@@ -213,10 +195,9 @@ describe('Plain formatter', () => {
           newValue: false
         }
       ]
-    };
-
-    expect(plain(diff)).toBe("Property 'verbose' was updated. From true to false");
-  });
+    }
+    expect(plain(diff)).toBe("Property 'verbose' was updated. From true to false")
+  })
 
   test('formats nested objects as [complex value]', () => {
     const diff = {
@@ -228,10 +209,9 @@ describe('Plain formatter', () => {
           value: { option: 'value' }
         }
       ]
-    };
-
-    expect(plain(diff)).toBe("Property 'settings' was added with value: [complex value]");
-  });
+    }
+    expect(plain(diff)).toBe("Property 'settings' was added with value: [complex value]")
+  })
 
   test('formats nested properties correctly', () => {
     const diff = {
@@ -250,9 +230,8 @@ describe('Plain formatter', () => {
           ]
         }
       ]
-    };
-
-    expect(plain(diff)).toBe("Property 'common.setting1' was updated. From 'value1' to 'value2'");
+    }
+    expect(plain(diff)).toBe("Property 'common.setting1' was updated. From 'value1' to 'value2'")
   });
 
   test('formats multiple changes correctly', () => {
@@ -282,16 +261,14 @@ describe('Plain formatter', () => {
           ]
         }
       ]
-    };
-
+    }
     const expected = [
       "Property 'follow' was added with value: false",
       "Property 'timeout' was removed",
       "Property 'common.setting' was updated. From true to null"
-    ].join('\n');
-
-    expect(plain(diff)).toBe(expected);
-  });
+    ].join('\n')
+    expect(plain(diff)).toBe(expected)
+  })
 
   test('formats string values with quotes', () => {
     const diff = {
@@ -305,8 +282,8 @@ describe('Plain formatter', () => {
       ]
     };
 
-    expect(plain(diff)).toBe("Property 'message' was added with value: 'hello'");
-  });
+    expect(plain(diff)).toBe("Property 'message' was added with value: 'hello'")
+  })
 
   test('formats null values correctly', () => {
     const diff = {
@@ -320,8 +297,8 @@ describe('Plain formatter', () => {
       ]
     };
 
-    expect(plain(diff)).toBe("Property 'value' was added with value: null");
-  });
+    expect(plain(diff)).toBe("Property 'value' was added with value: null")
+  })
 
   test('ignores unchanged properties', () => {
     const diff = {
@@ -339,16 +316,11 @@ describe('Plain formatter', () => {
           newValue: 'new'
         }
       ]
-    };
-
-    expect(plain(diff)).toBe("Property 'changed' was updated. From 'old' to 'new'");
-  });
-});
-
-
+    }
+    expect(plain(diff)).toBe("Property 'changed' was updated. From 'old' to 'new'")
+  })
+})
 // тесты для стайлиш ////////////////////////////////////
-
-
 describe('Stylish formatter', () => {
   test('formats added primitive property', () => {
     const diff = {
@@ -366,8 +338,7 @@ describe('Stylish formatter', () => {
       '}'
     ].join('\n');
     expect(stylish(diff)).toEqual(expected);
-  });
-
+  })
   test('formats removed nested object', () => {
     const diff = {
       type: 'root',
@@ -376,8 +347,7 @@ describe('Stylish formatter', () => {
         type: 'removed',
         value: { debug: true, level: 'info' }
       }]
-    };
-
+    }
     const expected = [
       '{',
       '  - settings: {',
@@ -386,8 +356,8 @@ describe('Stylish formatter', () => {
       '    }',
       '}'
     ].join('\n');
-    expect(stylish(diff)).toEqual(expected);
-  });
+    expect(stylish(diff)).toEqual(expected)
+  })
 
   test('formats changed property with different types', () => {
     const diff = {
@@ -398,16 +368,16 @@ describe('Stylish formatter', () => {
         oldValue: false,
         newValue: [1, 2, 3]
       }]
-    };
+    }
 
     const expected = [
       '{',
       '  - verbose: false',
       '  + verbose: [1, 2, 3]',
       '}'
-    ].join('\n');
-    expect(stylish(diff)).toEqual(expected);
-  });
+    ].join('\n')
+    expect(stylish(diff)).toEqual(expected)
+  })
 
   test('formats deeply nested structures', () => {
     const diff = {
@@ -430,8 +400,7 @@ describe('Stylish formatter', () => {
           }]
         }]
       }]
-    };
-
+    }
     const expected = [
       '{',
       '    common: {',
@@ -446,9 +415,9 @@ describe('Stylish formatter', () => {
       '        }',
       '    }',
       '}'
-    ].join('\n');
-    expect(stylish(diff)).toEqual(expected);
-  });
+    ].join('\n')
+    expect(stylish(diff)).toEqual(expected)
+  })
 
   test('formats empty object correctly', () => {
     const diff = {
@@ -466,7 +435,7 @@ describe('Stylish formatter', () => {
       '}'
     ].join('\n');
     expect(stylish(diff)).toEqual(expected);
-  });
+  })
 
   test('handles special characters in strings', () => {
     const diff = {
@@ -476,34 +445,32 @@ describe('Stylish formatter', () => {
         type: 'added',
         value: 'Hello\nWorld!'
       }]
-    };
+    }
 
     const expected = [
       '{',
       '  + message: "Hello\\nWorld!"',
       '}'
     ].join('\n');
-    expect(stylish(diff)).toEqual(expected);
-  });
-});
-//
-
+    expect(stylish(diff)).toEqual(expected)
+  })
+})
 
 // индекс js в forrmattere //////// 
 describe('Formatter factory', () => {
   test('returns stylish formatter for "stylish" format', () => {
-    const formatter = getFormatter('stylish');
-    expect(formatter).toBe(stylish);
-  });
+    const formatter = getFormatter('stylish')
+    expect(formatter).toBe(stylish)
+  })
 
   test('returns plain formatter for "plain" format', () => {
-    const formatter = getFormatter('plain');
-    expect(formatter).toBe(plain);
-  });
+    const formatter = getFormatter('plain')
+    expect(formatter).toBe(plain)
+  })
 
   test('throws error for unknown format', () => {
     expect(() => getFormatter('unknown')).toThrow('Unknown format: unknown');
-  });
+  })
 
   test('formatters produce correct output', () => {
     const testDiff = {
@@ -513,18 +480,15 @@ describe('Formatter factory', () => {
         type: 'added',
         value: 'value'
       }]
-    };
-
-    const stylishFormatter = getFormatter('stylish');
-    expect(stylishFormatter(testDiff)).toMatch('+ key: value');
-
-    const plainFormatter = getFormatter('plain');
-    expect(plainFormatter(testDiff)).toMatch("was added with value");
-  });
-
+    }
+    const stylishFormatter = getFormatter('stylish')
+    expect(stylishFormatter(testDiff)).toMatch('+ key: value')
+    const plainFormatter = getFormatter('plain')
+    expect(plainFormatter(testDiff)).toMatch("was added with value")
+  })
   // Можно добавить тест для json, когда он будет реализован
-  test.todo('returns json formatter for "json" format');
-});
+  test.todo('returns json formatter for "json" format')
+})
 
 // half.js ///////
 describe('compare', () => {
@@ -538,48 +502,45 @@ describe('compare', () => {
       type: 'added',
       value: 'value',
       depth: 1
-    });
-  });
+    })
+  })
 
   test('should detect removed properties', () => {
-    const obj1 = { oldKey: 'value' };
-    const obj2 = {};
-    
-    const result = compare(obj1, obj2);
+    const obj1 = { oldKey: 'value' }
+    const obj2 = {}
+    const result = compare(obj1, obj2)
     expect(result.children).toContainEqual({
       key: 'oldKey',
       type: 'removed',
       value: 'value',
       depth: 1
-    });
-  });
+    })
+  })
 
   test('should detect unchanged properties', () => {
-    const obj1 = { sameKey: 'value' };
-    const obj2 = { sameKey: 'value' };
-    
-    const result = compare(obj1, obj2);
+    const obj1 = { sameKey: 'value' }
+    const obj2 = { sameKey: 'value' }
+    const result = compare(obj1, obj2)
     expect(result.children).toContainEqual({
       key: 'sameKey',
       type: 'unchanged',
       value: 'value',
       depth: 1
-    });
-  });
+    })
+  })
 
   test('should detect changed properties', () => {
-    const obj1 = { key: 'old' };
-    const obj2 = { key: 'new' };
-    
-    const result = compare(obj1, obj2);
+    const obj1 = { key: 'old' }
+    const obj2 = { key: 'new' }
+    const result = compare(obj1, obj2)
     expect(result.children).toContainEqual({
       key: 'key',
       type: 'changed',
       oldValue: 'old',
       newValue: 'new',
       depth: 1
-    });
-  });
+    })
+  })
 
   test('should handle nested objects', () => {
     const obj1 = { nested: { key: 'value' } };
@@ -590,16 +551,15 @@ describe('compare', () => {
       key: 'nested',
       type: 'nested',
       depth: 1
-    });
-    
+    })
     expect(result.children[0].children).toContainEqual({
       key: 'key',
       type: 'changed',
       oldValue: 'value',
       newValue: 'changed',
       depth: 2
-    });
-  });
+    })
+  })
 
   test('should sort keys alphabetically', () => {
     const obj1 = { b: 1, a: 1 };
@@ -614,14 +574,12 @@ describe('compare', () => {
     const obj1 = {
       common: { setting1: 'Value 1', setting2: 200 },
       group1: { a: 'a' }
-    };
+    }
     const obj2 = {
       common: { setting1: 'Value 1', setting3: true },
       group2: { b: 'b' }
-    };
-    
+    }
     const result = compare(obj1, obj2);
-    
     expect(result).toEqual({
       type: 'root',
       children: [
@@ -663,17 +621,17 @@ describe('compare', () => {
           depth: 1
         }
       ]
-    });
-  });
+    })
+  })
 
   test('should handle empty objects', () => {
     const result = compare({}, {});
     expect(result).toEqual({
       type: 'root',
       children: []
-    });
-  });
-});
+    })
+  })
+})
 
 describe('JSON formatter', () => {
   test('formats simple diff to JSON string', () => {
@@ -686,11 +644,10 @@ describe('JSON formatter', () => {
           value: 'value'
         }
       ]
-    };
-
-    const result = jsonFormatter(diff);
-    expect(result).toBe(JSON.stringify(diff, null, 2));
-  });
+    }
+    const result = jsonFormatter(diff)
+    expect(result).toBe(JSON.stringify(diff, null, 2))
+  })
 
   test('formats complex nested diff to JSON', () => {
     const diff = {
@@ -709,21 +666,19 @@ describe('JSON formatter', () => {
           ]
         }
       ]
-    };
-
-    const result = jsonFormatter(diff);
-    expect(result).toMatchSnapshot();
-  });
+    }
+    const result = jsonFormatter(diff)
+    expect(result).toMatchSnapshot()
+  })
 
   test('handles empty diff correctly', () => {
     const diff = {
       type: 'root',
       children: []
-    };
-
+    }
     const result = jsonFormatter(diff);
-    expect(result).toBe('{\n  "type": "root",\n  "children": []\n}');
-  });
+    expect(result).toBe('{\n  "type": "root",\n  "children": []\n}')
+  })
 
   test('maintains proper indentation', () => {
     const diff = {
@@ -735,15 +690,14 @@ describe('JSON formatter', () => {
           value: 123
         }
       ]
-    };
-
-    const result = jsonFormatter(diff);
-    const lines = result.split('\n');
-    expect(lines[0]).toBe('{');
-    expect(lines[1]).toBe('  "type": "root",');
-    expect(lines[2]).toBe('  "children": [');
-    expect(lines[3]).toBe('    {');
-  });
+    }
+    const result = jsonFormatter(diff)
+    const lines = result.split('\n')
+    expect(lines[0]).toBe('{')
+    expect(lines[1]).toBe('  "type": "root",')
+    expect(lines[2]).toBe('  "children": [')
+    expect(lines[3]).toBe('    {')
+  })
 
   test('preserves all diff properties', () => {
     const diff = {
@@ -757,9 +711,8 @@ describe('JSON formatter', () => {
           customProp: 'test'
         }
       ]
-    };
-
+    }
     const result = jsonFormatter(diff);
-    expect(result).toContain('"customProp": "test"');
-  });
-});
+    expect(result).toContain('"customProp": "test"')
+  })
+})

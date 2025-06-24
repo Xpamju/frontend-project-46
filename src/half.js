@@ -7,29 +7,25 @@ const buildDiff = (data1, data2) => {
       return {
         key,
         type: 'removed',
-        value: data1[key]
+        value: data1[key],
       }
     }
-    
     if (!_.has(data1, key)) {
       return {
         key,
         type: 'added', 
         value: data2[key]
-      };
+      }
     }
-    
     const value1 = data1[key]
-    const value2 = data2[key]
-    
+    const value2 = data2[key]  
     if (_.isEqual(value1, value2)) {
       return {
         key,
         type: 'unchanged',
         value: value1
       };
-    }
-    
+    }   
     if (_.isPlainObject(value1) && _.isPlainObject(value2)) {
       return {
         key,
@@ -37,7 +33,6 @@ const buildDiff = (data1, data2) => {
         children: buildDiff(value1, value2)
       };
     }
-    
     return {
       key,
       type: 'changed',
@@ -52,4 +47,4 @@ const compare = (data1, data2) => ({
   children: buildDiff(data1, data2)
 })
 
-export default compare;
+export default compare
