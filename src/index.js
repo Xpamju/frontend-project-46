@@ -4,7 +4,7 @@ import yaml from 'yaml'
 import compare from './half.js'
 import getFormatter from '../formatters/index.js'
 
-const parseFile = (filepath) => {
+const parseFile = filepath => {
   const fullPath = path.resolve(process.cwd(), filepath)
   const format = path.extname(fullPath).toLowerCase()
   const data = readFileSync(fullPath, 'utf-8')
@@ -27,7 +27,7 @@ const genDiff = (filepath1, filepath2, format = 'stylish') => {
     const diff = compare(parsedData1, parsedData2)
     const formatter = getFormatter(format)
     return formatter(diff) // Возвращаем отформатированную строку
-  } catch (error) 
+  } catch (error)
   {
     throw new Error(`Error while comparing files: ${error.message}`)
   };

@@ -15,7 +15,7 @@ const stylish = (diff) => {
           return [
             `${indent}  - ${child.key}: ${formatValue(child.oldValue, depth + 1)}`,
             `${indent}  + ${child.key}: ${formatValue(child.newValue, depth + 1)}`,
-          ].join('\n');
+          ].join('\n')
         case 'nested':
           return `${indent}    ${child.key}: {\n${iter(child, depth + 1)}\n${indent}    }`
         default:
@@ -23,15 +23,15 @@ const stylish = (diff) => {
       }
     })
     return lines.join('\n')
-  };
+  }
   return `{\n${iter(diff)}\n}`
 }
 
 const formatValue = (value, depth) => {
   if (_.isPlainObject(value)) {
-    const indent = '    '.repeat(depth);
+    const indent = '    '.repeat(depth)
     const lines = Object.entries(value).map(
-      ([key, val]) => `${indent}${key}: ${formatValue(val, depth + 1)}`
+      ([key, val]) => `${indent}${key}: ${formatValue(val, depth + 1)}`,
     )
     return `{\n${lines.join('\n')}\n${'    '.repeat(depth - 1)}}`
   }

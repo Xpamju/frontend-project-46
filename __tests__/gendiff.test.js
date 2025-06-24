@@ -91,7 +91,7 @@ describe('Plain formatter', () => {
           value: false,
         },
       ],
-    };
+    }
     expect(plain(diff)).toBe('Property "follow" was added with value: false')
   })
 
@@ -102,10 +102,10 @@ describe('Plain formatter', () => {
         {
           key: 'timeout',
           type: 'removed',
-          value: 50
+          value: 50,
         }
       ],
-    };
+    }
     expect(plain(diff)).toBe("Property 'timeout' was removed")
   })
 
@@ -120,7 +120,7 @@ describe('Plain formatter', () => {
           newValue: false,
         }
       ],
-    };
+    }
     expect(plain(diff)).toBe("Property 'verbose' was updated. From true to false")
   })
 
@@ -134,7 +134,7 @@ describe('Plain formatter', () => {
           value: { option: 'value' },
         }
       ],
-    };
+    }
     expect(plain(diff)).toBe("Property 'settings' was added with value: [complex value]")
   })
 
@@ -152,9 +152,9 @@ describe('Plain formatter', () => {
               oldValue: 'value1',
               newValue: 'value2',
             }
-          ]
+          ],
         }
-      ]
+      ],
     }
     expect(plain(diff)).toBe("Property 'common.setting1' was updated. From 'value1' to 'value2'")
   })
@@ -181,11 +181,11 @@ describe('Plain formatter', () => {
               key: 'setting',
               type: 'changed',
               oldValue: true,
-              newValue: null
+              newValue: null,
             }
-          ]
+          ],
         }
-      ]
+      ],
     }
     const expected = [
       "Property 'follow' was added with value: false",
@@ -236,7 +236,7 @@ describe('Plain formatter', () => {
           key: 'changed',
           type: 'changed',
           oldValue: 'old',
-          newValue: 'new'
+          newValue: 'new',
         },
       ],
     };
@@ -251,8 +251,8 @@ describe('Stylish formatter', () => {
       children: [{
         key: 'timeout',
         type: 'added',
-        value: 100
-      }]
+        value: 100,
+      }],
     }
     const expected = [
       '{',
@@ -318,10 +318,10 @@ describe('Stylish formatter', () => {
             key: 'deep',
             type: 'changed',
             oldValue: { enabled: false },
-            newValue: { enabled: true }
-          }]
-        }]
-      }]
+            newValue: { enabled: true },
+          }],
+        }],
+      }],
     }
     const expected = [
       '{',
@@ -336,7 +336,7 @@ describe('Stylish formatter', () => {
       '            }',
       '        }',
       '    }',
-      '}'
+      '}',
     ].join('\n')
     expect(stylish(diff)).toEqual(expected)
   })
@@ -347,16 +347,16 @@ describe('Stylish formatter', () => {
       children: [{
         key: 'empty',
         type: 'added',
-        value: {}
-      }]
+        value: {},
+      }],
     };
 
     const expected = [
       '{',
       '  + empty: {}',
-      '}'
-    ].join('\n');
-    expect(stylish(diff)).toEqual(expected);
+      '}',
+    ].join('\n')
+    expect(stylish(diff)).toEqual(expected)
   })
 
   test('handles special characters in strings', () => {
@@ -365,8 +365,8 @@ describe('Stylish formatter', () => {
       children: [{
         key: 'message',
         type: 'added',
-        value: 'Hello\nWorld!'
-      }]
+        value: 'Hello\nWorld!',
+      }],
     }
 
     const expected = [
@@ -400,7 +400,7 @@ describe('Formatter factory', () => {
       children: [{
         key: 'key',
         type: 'added',
-        value: 'value'
+        value: 'value',
       }]
     }
     const stylishFormatter = getFormatter('stylish')
@@ -423,7 +423,7 @@ describe('compare', () => {
       key: 'newKey',
       type: 'added',
       value: 'value',
-      depth: 1
+      depth: 1,
     })
   })
 
@@ -435,7 +435,7 @@ describe('compare', () => {
       key: 'oldKey',
       type: 'removed',
       value: 'value',
-      depth: 1
+      depth: 1,
     })
   })
 
@@ -447,7 +447,7 @@ describe('compare', () => {
       key: 'sameKey',
       type: 'unchanged',
       value: 'value',
-      depth: 1
+      depth: 1,
     })
   })
 
@@ -460,7 +460,7 @@ describe('compare', () => {
       type: 'changed',
       oldValue: 'old',
       newValue: 'new',
-      depth: 1
+      depth: 1,
     })
   })
 
@@ -472,14 +472,14 @@ describe('compare', () => {
     expect(result.children[0]).toMatchObject({
       key: 'nested',
       type: 'nested',
-      depth: 1
+      depth: 1,
     })
     expect(result.children[0].children).toContainEqual({
       key: 'key',
       type: 'changed',
       oldValue: 'value',
       newValue: 'changed',
-      depth: 2
+      depth: 2,
     })
   })
 
@@ -514,7 +514,7 @@ describe('compare', () => {
               key: 'setting1',
               type: 'unchanged',
               value: 'Value 1',
-              depth: 2
+              depth: 2,
             },
             {
               key: 'setting2',
@@ -526,23 +526,23 @@ describe('compare', () => {
               key: 'setting3',
               type: 'added',
               value: true,
-              depth: 2
+              depth: 2,
             }
-          ]
+          ],
         },
         {
           key: 'group1',
           type: 'removed',
           value: { a: 'a' },
-          depth: 1
+          depth: 1,
         },
         {
           key: 'group2',
           type: 'added',
           value: { b: 'b' },
-          depth: 1
-        }
-      ]
+          depth: 1,
+        },
+      ],
     })
   })
 
@@ -550,7 +550,7 @@ describe('compare', () => {
     const result = compare({}, {});
     expect(result).toEqual({
       type: 'root',
-      children: []
+      children: [],
     })
   })
 })
@@ -583,11 +583,11 @@ describe('JSON formatter', () => {
               key: 'inner',
               type: 'changed',
               oldValue: 'old',
-              newValue: 'new'
+              newValue: 'new',
             }
-          ]
+          ],
         }
-      ]
+      ],
     }
     const result = jsonFormatter(diff)
     expect(result).toMatchSnapshot()
@@ -596,9 +596,9 @@ describe('JSON formatter', () => {
   test('handles empty diff correctly', () => {
     const diff = {
       type: 'root',
-      children: []
+      children: [],
     }
-    const result = jsonFormatter(diff);
+    const result = jsonFormatter(diff)
     expect(result).toBe('{\n  "type": "root",\n  "children": []\n}')
   })
 
@@ -609,9 +609,9 @@ describe('JSON formatter', () => {
         {
           key: 'test',
           type: 'unchanged',
-          value: 123
-        }
-      ]
+          value: 123,
+        },
+      ],
     }
     const result = jsonFormatter(diff)
     const lines = result.split('\n')
@@ -630,11 +630,11 @@ describe('JSON formatter', () => {
           type: 'changed',
           oldValue: 1,
           newValue: 2,
-          customProp: 'test'
-        }
-      ]
+          customProp: 'test',
+        },
+      ],
     }
-    const result = jsonFormatter(diff);
+    const result = jsonFormatter(diff)
     expect(result).toContain('"customProp": "test"')
   })
 })
