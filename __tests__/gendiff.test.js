@@ -8,7 +8,7 @@ import jsonFormatter from '../formatters/json.js';
 
 import yaml from 'yaml';
 import { dirname } from 'path';
-import parseAndRead from '../src/parsers.js';
+import genDiff from '../src/index.js';
 import getFormatter from '../formatters/index.js';
 import { exec } from 'child_process';
 import stylish from '../formatters/stylish.js';
@@ -113,7 +113,7 @@ describe('CLI', () => {
 //   const expectedData = readFileSync(expectedFile, 'utf-8');
 //   const expected = JSON.parse(expectedData); 
 
-//   const actual = parseAndRead(file1, file2);
+//   const actual = genDiff(file1, file2);
 
 
 //   expect(actual).toEqual(expected);

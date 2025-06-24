@@ -2,6 +2,7 @@ import { readFileSync } from 'fs';
 import path from 'path';
 import yaml from 'yaml';
 import compare from './half.js';
+import getFormatter from '../formatters/index.js'
 //
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
@@ -25,13 +26,27 @@ const parseFile = (filepath) => {
   }
 };
 
+// const genDiff = (filepath1, filepath2, format = 'stylish') => {
+//   try {
+//     const parsedData1 = parseFile(filepath1);
+//     const parsedData2 = parseFile(filepath2);
+//     const diff = compare(parsedData1, parsedData2);
+    
+//     return diff; // Теперь возвращаем неотформатированный diff, форматирование будет в другом месте
+//   } catch (error) {
+//     throw new Error(`Error while comparing files: ${error.message}`);
+//   }
+// };
+
+// export default genDiff;
+
 const genDiff = (filepath1, filepath2, format = 'stylish') => {
   try {
     const parsedData1 = parseFile(filepath1);
     const parsedData2 = parseFile(filepath2);
     const diff = compare(parsedData1, parsedData2);
-    
-    return diff; // Теперь возвращаем неотформатированный diff, форматирование будет в другом месте
+    const formatter = getFormatter(format);
+    return formatter(diff); // Возвращаем отформатированную строку
   } catch (error) {
     throw new Error(`Error while comparing files: ${error.message}`);
   }
