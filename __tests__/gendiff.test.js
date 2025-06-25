@@ -404,7 +404,7 @@ describe('Formatter factory', () => {
     const stylishFormatter = getFormatter('stylish')
     expect(stylishFormatter(testDiff)).toMatch('+ key: value')
     const plainFormatter = getFormatter('plain')
-    expect(plainFormatter(testDiff)).toMatch("was added with value")
+    expect(plainFormatter(testDiff)).toMatch('was added with value')
   })
   // Можно добавить тест для json, когда он будет реализован
   test.todo('returns json formatter for "json" format')

@@ -4,7 +4,7 @@ import yaml from 'yaml'
 import compare from './half.js'
 import getFormatter from '../formatters/index.js'
 
-const parseFile = filepath => {
+const parseFile = (filepath) => {
   const fullPath = path.resolve(process.cwd(), filepath)
   const format = path.extname(fullPath).toLowerCase()
   const data = readFileSync(fullPath, 'utf-8')
