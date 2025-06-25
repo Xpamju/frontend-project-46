@@ -151,12 +151,12 @@ describe('Plain formatter', () => {
               type: 'changed',
               oldValue: 'value1',
               newValue: 'value2',
-            }
+            },
           ],
         },
       ],
     }
-    expect(plain(diff)).toBe("Property 'common.setting1' was updated. From 'value1' to 'value2'")
+    expect(plain(diff)).toBe('Property "common.setting1" was updated. From "value1" to "value2"')
   })
 
   test('formats multiple changes correctly', () => {
@@ -166,12 +166,12 @@ describe('Plain formatter', () => {
         {
           key: 'follow',
           type: 'added',
-          value: false
+          value: false,
         },
         {
           key: 'timeout',
           type: 'removed',
-          value: 50
+          value: 50,
         },
         {
           key: 'common',
@@ -182,7 +182,7 @@ describe('Plain formatter', () => {
               type: 'changed',
               oldValue: true,
               newValue: null,
-            }
+            },
           ],
         },
       ],
@@ -190,7 +190,7 @@ describe('Plain formatter', () => {
     const expected = [
       'Property "follow" was added with value: false',
       'Property "timeout" was removed',
-      'Property "common.setting" was updated. From true to null'
+      'Property "common.setting" was updated. From true to null',
     ].join('\n')
     expect(plain(diff)).toBe(expected)
   })
@@ -276,7 +276,7 @@ describe('Stylish formatter', () => {
       '        debug: true',
       '        level: info',
       '    }',
-      '}'
+      '}',
     ].join('\n')
     expect(stylish(diff)).toEqual(expected)
   })
@@ -310,7 +310,7 @@ describe('Stylish formatter', () => {
         children: [{
           key: 'setting1',
           type: 'unchanged',
-          value: 'value1'
+          value: 'value1',
         }, {
           key: 'setting2',
           type: 'nested',
@@ -349,7 +349,7 @@ describe('Stylish formatter', () => {
         type: 'added',
         value: {},
       }],
-    };
+    }
 
     const expected = [
       '{',
@@ -371,12 +371,12 @@ describe('Stylish formatter', () => {
     const expected = [
       '{',
       '  + message: "Hello\\nWorld!"',
-      '}'
-    ].join('\n');
+      '}',
+    ].join('\n')
     expect(stylish(diff)).toEqual(expected)
   })
 })
-// индекс js в forrmattere //////// 
+// индекс js в forrmattere ////////
 describe('Formatter factory', () => {
   test('returns stylish formatter for "stylish" format', () => {
     const formatter = getFormatter('stylish')
@@ -399,7 +399,7 @@ describe('Formatter factory', () => {
         key: 'key',
         type: 'added',
         value: 'value',
-      }]
+      }],
     }
     const stylishFormatter = getFormatter('stylish')
     expect(stylishFormatter(testDiff)).toMatch('+ key: value')
@@ -413,7 +413,7 @@ describe('Formatter factory', () => {
 // half.js ///////
 describe('compare', () => {
   test('should detect added properties', () => {
-    const obj1 = {};
+    const obj1 = {}
     const obj2 = { newKey: 'value' }
     const result = compare(obj1, obj2)
     expect(result.children).toContainEqual({
@@ -485,7 +485,7 @@ describe('compare', () => {
     const result = compare(obj1, obj2)
     const keys = result.children.map(node => node.key)
     expect(keys).toEqual(['a', 'b', 'c'])
-  });
+  })
 
   test('should build correct structure for complex objects', () => {
     const obj1 = {
