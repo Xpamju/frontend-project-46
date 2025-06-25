@@ -27,7 +27,7 @@ const genDiff = (filepath1, filepath2, format = 'stylish') => {
     const diff = compare(parsedData1, parsedData2)
     const formatter = getFormatter(format)
     return formatter(diff) // Возвращаем отформатированную строку
-  } 
+  }
   catch (error) {
     throw new Error(`Error while comparing files: ${error.message}`)
   };
